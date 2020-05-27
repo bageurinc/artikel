@@ -41,7 +41,7 @@ class artikel extends Model
              $query->whereRaw($searchqry);
         }
         if(@$request->category){
-             $query->where('id_kategori',$request->category);
+             $query->where('kategori_id',$request->category);
         }
         if($request->get == 'all'){
             return $query->get();
