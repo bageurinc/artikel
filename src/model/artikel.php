@@ -9,7 +9,7 @@ use Bageur\Artikel\Processors\AvatarProcessor;
 class artikel extends Model
 {
     protected $table   = 'bgr_artikel';
-    protected $appends = ['avatar','text_limit'];
+    protected $appends = ['avatar','text_limit','judul_limit'];
 
     public function getAvatarAttribute()
     {
@@ -19,6 +19,9 @@ class artikel extends Model
          return Str::words(nl2br($this->text),25,' <br> (tap untuk baca lengkap)');
     }    
 
+    public function getJudulLimitAttribute() {
+         return Str::words(strip_tags($this->judul),5,' ...');
+    }
     public function scopeDatatable($query,$request,$page=12)
     {
           $search       = ["judul",'tag','text'];
