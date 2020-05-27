@@ -3,11 +3,17 @@
 namespace Bageur\Artikel\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Bageur\Artikel\Processors\AvatarProcessor;
 
 class kategori extends Model
 {
     protected $table = 'bgr_kategori';
+    protected $appends = ['avatar'];
 
+    public function getAvatarAttribute()
+    {
+            return AvatarProcessor::get($this->nama);
+    }   
     public function scopeDatatable($query,$request,$page=12)
     {
           $search       = ["nama"];

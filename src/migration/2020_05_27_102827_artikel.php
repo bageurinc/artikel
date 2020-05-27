@@ -15,8 +15,9 @@ class Artikel extends Migration
     {
         Schema::create('bgr_kategori', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sub_id');
+            $table->foreignId('sub_id')->nullable();
             $table->string('nama');
+            $table->string('nama_seo');
             $table->string('status')->default('aktif');
             $table->timestamps();
         }); 
@@ -30,7 +31,7 @@ class Artikel extends Migration
             $table->text('seo_deskripsi')->nullable();
             $table->text('tag')->nullable();
             $table->text('text');
-            $table->string('gambar');
+            $table->string('gambar')->nullable();
             $table->string('status')->default('draf');
             $table->timestamps();
         });
