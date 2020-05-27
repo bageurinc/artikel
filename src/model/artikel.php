@@ -2,18 +2,23 @@
 
 namespace Bageur\Artikel\Model;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Bageur\Artikel\Processors\AvatarProcessor;
 
 class artikel extends Model
 {
     protected $table   = 'bgr_artikel';
-    protected $appends = ['avatar'];
+    protected $appends = ['avatar','text_limit'];
 
     public function getAvatarAttribute()
     {
             return AvatarProcessor::get($this->judul,@$this->gambar);
     }   
+     public function getTextLimitAttribute() {
+         return Str::words(nl2br($this->text),25,' <br> (tap untuk baca lengkap)');
+    }    
+
     public function scopeDatatable($query,$request,$page=12)
     {
           $search       = ["judul",'tag','text'];
@@ -41,7 +46,7 @@ class artikel extends Model
              $query->whereRaw($searchqry);
         }
         if(@$request->category){
-             $query->where('id_kategori',$request->category);
+             $query->where('kategori_id',$request->category);
         }
         if($request->get == 'all'){
             return $query->get();
