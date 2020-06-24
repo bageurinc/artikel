@@ -19,7 +19,7 @@ class ArtikelController extends Controller
     public function store(Request $request)
     {
         $rules    	= [
-                        'kategori'		     	=> 'required',
+                        'kategori'		     	=> 'required|numeric',
                         'judul'		     		=> 'required|unique:bgr_artikel|min:3',
                         'text'		     		=> 'required|min:3',
                     ];

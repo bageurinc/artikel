@@ -26,7 +26,7 @@ class Artikel extends Migration
             $table->id();
             $table->foreignId('kategori_id');
             $table->string('judul');
-            $table->text('judul_seo')->unique();
+            $table->text('judul_seo');
             $table->text('seo_keyword')->nullable();
             $table->text('seo_deskripsi')->nullable();
             $table->text('tag')->nullable();

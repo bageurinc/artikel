@@ -40,9 +40,6 @@ class kategori extends Model
         }else{
              $query->whereRaw($searchqry);
         }
-        if(@$request->category){
-             $query->where('id_kategori',$request->category);
-        }
         if($request->get == 'all'){
             return $query->get();
         }else{
