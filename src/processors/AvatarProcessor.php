@@ -10,6 +10,6 @@ class AvatarProcessor {
             }
             return null;
         }
-        return url('artikel/'.$image);
+        return url('storage/artikel/'.$image);
     }
 }
