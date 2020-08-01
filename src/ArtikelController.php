@@ -100,7 +100,8 @@ class ArtikelController extends Controller
             $artikel->tag	        		= @$request->tag;
             $artikel->text	        		= $request->text;
             if($request->file('gambar') != null){
-	           	$artikel->gambar	        	= $request->gambar;
+                $upload                     = UploadProcessor::go($request->file('gambar'),'artikel');
+	           	$artikel->gambar	        = $upload;
        		}
             $artikel->save();
             return response(['status' => true ,'text'    => 'has input'], 200); 
