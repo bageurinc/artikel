@@ -36,7 +36,7 @@ class AuthorController extends Controller
             $author->nama_seo	       		= Str::slug($request->nama);
             if($request->file('gambar') != null){
                 $upload                     = UploadProcessor::go($request->file('gambar'),'artikel');
-                $artikel->foto              = $upload;
+                $author->foto              = $upload;
             }
             $author->save();
             return response(['status' => true ,'text'    => 'has input'], 200); 
@@ -81,7 +81,7 @@ class AuthorController extends Controller
             $author->nama_seo             = Str::slug($request->nama);
             if($request->file('gambar') != null){
                 $upload                     = UploadProcessor::go($request->file('gambar'),'artikel');
-                $artikel->foto              = $upload;
+                $author->foto              = $upload;
             }
             $author->save();
             return response(['status' => true ,'text'    => 'has input'], 200); 

@@ -21,6 +21,10 @@ class Author extends Migration
             $table->string('status')->default('aktif');
             $table->timestamps();
         }); 
+
+        Schema::table('bgr_artikel', function (Blueprint $table) {
+            $table->foreignId('author_id')->default(1);
+        });
     }
 
     /**
@@ -31,5 +35,8 @@ class Author extends Migration
     public function down()
     {
         Schema::dropIfExists('bgr_author');
+        Schema::table('bgr_artikel', function (Blueprint $table) {
+            $table->dropColumn('author_id');
+         });
     }
 }
