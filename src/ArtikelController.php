@@ -12,7 +12,7 @@ class ArtikelController extends Controller
 
     public function index(Request $request)
     {
-       $query = artikel::with('kategori')->datatable($request);
+       $query = artikel::with(['kategori','author'])->datatable($request);
        return $query;
     }
 
@@ -61,7 +61,7 @@ class ArtikelController extends Controller
      */
     public function show($id)
     {
-        return artikel::with(['kategori'])->findOrFail($id);
+        return artikel::with(['kategori','author'])->findOrFail($id);
     }
 
     /**

@@ -62,4 +62,8 @@ class artikel extends Model
     {
       return $this->hasOne('Bageur\Artikel\model\kategori','id','kategori_id');
     }
+    public function author()
+    {
+      return $this->hasOne('Bageur\Artikel\model\author','id','author_id');
+    }
 }
