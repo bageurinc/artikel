@@ -4,21 +4,23 @@ namespace Bageur\Artikel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Bageur\Artikel\model\kategori;
+use Bageur\Artikel\model\author;
+use Bageur\Artikel\Processors\UploadProcessor;
 use Validator;
-class kategoriController extends Controller
+class AuthorController extends Controller
 {
 
     public function index(Request $request)
     {
-       $query = kategori::datatable($request);
+       $query = author::datatable($request);
        return $query;
     }
 
     public function store(Request $request)
     {
         $rules    	= [
-                        'nama'		     		=> 'required|unique:bgr_kategori|min:3',
+                        'nama'		     		=> 'required|unique:bgr_author|min:3',
+                        'gambar'                => 'nullable|mimes:jpg,jpeg,png|max:1000'
                     ];
 
         $messages 	= [];
@@ -29,10 +31,14 @@ class kategoriController extends Controller
             $errors = $validator->errors();
             return response(['status' => false ,'error'    =>  $errors->all()], 200);
         }else{
-            $kategori              			= new kategori;
-            $kategori->nama	                = $request->nama;
-            $kategori->nama_seo	       		= Str::slug($request->nama);
-            $kategori->save();
+            $author              			= new author;
+            $author->nama	                = $request->nama;
+            $author->nama_seo	       		= Str::slug($request->nama);
+            if($request->file('gambar') != null){
+                $upload                     = UploadProcessor::go($request->file('gambar'),'artikel');
+                $artikel->foto              = $upload;
+            }
+            $author->save();
             return response(['status' => true ,'text'    => 'has input'], 200); 
         }
     }
@@ -45,7 +51,7 @@ class kategoriController extends Controller
      */
     public function show($id)
     {
-        return kategori::findOrFail($id);
+        return author::findOrFail($id);
     }
 
     /**
@@ -58,7 +64,8 @@ class kategoriController extends Controller
     public function update(Request $request, $id)
     {
         $rules      = [
-                        'nama'                  => 'required|unique:bgr_kategori,nama,'.$id.',id|min:2',
+                        'nama'                  => 'required|unique:bgr_author,nama,'.$id.',id|min:2',
+                        'gambar'                => 'nullable|mimes:jpg,jpeg,png|max:1000'
                       ];
 
         $messages   = [];
@@ -69,10 +76,14 @@ class kategoriController extends Controller
             $errors = $validator->errors();
             return response(['status' => false ,'error'    =>  $errors->all()], 200);
         }else{
-            $kategori                       = kategori::findOrFail($id);
-            $kategori->nama                 = $request->nama;
-            $kategori->nama_seo             = Str::slug($request->nama);
-            $kategori->save();
+            $author                       = author::findOrFail($id);
+            $author->nama                 = $request->nama;
+            $author->nama_seo             = Str::slug($request->nama);
+            if($request->file('gambar') != null){
+                $upload                     = UploadProcessor::go($request->file('gambar'),'artikel');
+                $artikel->foto              = $upload;
+            }
+            $author->save();
             return response(['status' => true ,'text'    => 'has input'], 200); 
         }
     }
@@ -85,7 +96,7 @@ class kategoriController extends Controller
      */
     public function destroy($id)
     {
-          $delete = kategori::findOrFail($id);
+          $delete = author::findOrFail($id);
           $delete->delete();
           return response(['status' => true ,'text'    => 'has deleted'], 200); 
     }

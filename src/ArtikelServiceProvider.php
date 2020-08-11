@@ -15,6 +15,7 @@ class ArtikelServiceProvider extends ServiceProvider
     {
         // include __DIR__.'/routes/web.php';
         $this->app->make('Bageur\Artikel\ArtikelController');
+        $this->app->make('Bageur\Artikel\AuthorController');
         $this->app->make('Bageur\Artikel\KategoriController');
     }
 
