@@ -16,19 +16,20 @@ class ArtikelController extends Controller
        return $query;
     }
 
-    public function store(Request $request)
+     public function store(Request $request)
     {
-        $rules    	= [
-                        'kategori'		     	=> 'required|numeric',
-                        'judul'		     		=> 'required|unique:bgr_artikel|min:3',
-                        'text'		     		=> 'required|min:3',
+        $rules      = [
+                        'kategori'              => 'required',
+                        'penulis'               => 'required',
+                        'judul'                 => 'required|unique:bgr_artikel|min:3',
+                        'text'                  => 'required|min:3',
                     ];
 
         if($request->file('gambar') != null){
             $rules['gambar'] = 'mimes:jpg,jpeg,png|max:1000';
         }  
                     
-        $messages 	= [];
+        $messages   = [];
         $attributes = [];
 
         $validator = Validator::make($request->all(), $rules,$messages,$attributes);
@@ -36,18 +37,19 @@ class ArtikelController extends Controller
             $errors = $validator->errors();
             return response(['status' => false ,'error'    =>  $errors->all()], 200);
         }else{
-            $artikel              			= new artikel;
-            $artikel->kategori_id	        = $request->kategori;
-            $artikel->judul	        		= $request->judul;
-            $artikel->judul_seo	       		= Str::slug($request->judul);
-            $artikel->seo_keyword	        = @$request->seo_keyword;
-            $artikel->seo_deskripsi	        = @$request->seo_deskripsi;
-            $artikel->tag	        		= @$request->tag;
-            $artikel->text	        		= $request->text;
+            $artikel                        = new artikel;
+            $artikel->kategori_id           = $request->kategori;
+            $artikel->author_id             = $request->penulis;
+            $artikel->judul                 = $request->judul;
+            $artikel->judul_seo             = Str::slug($request->judul);
+            $artikel->seo_keyword           = @$request->seo_keyword;
+            $artikel->seo_deskripsi         = @$request->seo_deskripsi;
+            $artikel->tag                   = @$request->tag;
+            $artikel->text                  = $request->text;
             if($request->file('gambar') != null){
-            	$upload 					= UploadProcessor::go($request->file('gambar'),'artikel');
-           	 	$artikel->gambar	       	= $upload;
-       		}
+                $upload                     = UploadProcessor::go($request->file('gambar'),'artikel');
+                $artikel->gambar            = $upload;
+            }
             $artikel->save();
             return response(['status' => true ,'text'    => 'has input'], 200); 
         }
@@ -75,6 +77,7 @@ class ArtikelController extends Controller
     {
         $rules    	= [
                         'kategori'		     	=> 'required',
+                        'penulis'               => 'required',
                         'judul'		     		=> 'required|unique:bgr_artikel,judul,'.$id.',id|min:3',
                         'text'		     		=> 'required|min:3',
                     ];
@@ -93,6 +96,7 @@ class ArtikelController extends Controller
         }else{
             $artikel              			= artikel::findOrFail($id);
             $artikel->kategori_id	        = $request->kategori;
+            $artikel->author_id             = $request->penulis;
             $artikel->judul	        		= $request->judul;
             $artikel->judul_seo	       		= Str::slug($request->judul);
             $artikel->seo_keyword	        = @$request->seo_keyword;
