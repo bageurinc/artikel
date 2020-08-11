@@ -5,7 +5,7 @@ namespace Bageur\Artikel\Model;
 use Illuminate\Database\Eloquent\Model;
 use Bageur\Artikel\Processors\AvatarProcessor;
 
-class kategori extends Model
+class author extends Model
 {
     protected $table = 'bgr_author';
     protected $appends = ['avatar'];
