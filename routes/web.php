@@ -23,3 +23,5 @@ Route::get('/umroh', 'umrohController@index')->name('umroh');
 Route::get('/gallery', 'galleryController@index')->name('gallery');
 Route::get('/rewards-acknowlegement', 'rewardsController@index')->name('rewards');
 Route::get('/news', 'newsController@index')->name('news');
+Route::get('/detail-produk', 'detailProduk@index')->name('detailproduk');
+Route::get('/detail-artikel', 'detailArtikel@index')->name('detailartikel');

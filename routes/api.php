@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::group(['prefix' => 'auth',''], function ($router) {
+//     Route::post('login', 'jwt\AuthController@login')->middleware('guest');
+//     Route::post('logout', 'jwt\AuthController@logout')->middleware('auth:api');
+//     Route::post('refresh', 'jwt\AuthController@refresh')->middleware('auth:api');
+//     Route::post('me', 'jwt\AuthController@me')->middleware('auth:api');
+// });
+
+Route::name('bageur.')->group(function () {
+	Route::group(['prefix' => 'bageur/v1','middleware' => 'jwt.verify'], function () {
+		Route::apiResource('video', 'videoController');
+	});
 });
