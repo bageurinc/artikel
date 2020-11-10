@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'api',
+        'passwords' => 'bgr_users',
     ],
 
     /*
@@ -40,11 +40,9 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
         'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
+             'driver' => 'jwt',
+             'provider' => 'bgr_users',
         ],
     ],
 
@@ -69,6 +67,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],        
+        'bgr_users' => [
+            'driver' => 'eloquent',
+            'model' => Bageur\Auth\model\user::class,
         ],
 
         // 'users' => [
@@ -95,6 +97,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],        
+        'bgr_users' => [
+            'provider' => 'bgr_users',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
