@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::name('bageur.')->group(function () {
-	Route::group(['prefix' => 'bageur/v1','middleware' => 'jwt.verify'], function () {
-		Route::apiResource('video', 'videoController');
+	Route::group(['prefix' => 'v1','middleware' => 'jwt.verify'], function () {
+		Route::apiResource('reward', 'rewardController');
 	});
 });
