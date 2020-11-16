@@ -36,7 +36,7 @@
     <div>
         {{$r->paket->nama}}
     </div>
-    <a href="{{ route('detailproduk',[$r->id,$r->nama_jadwal_seo]) }}">lihat selengkapnya</a>
+    <a href="{{ route('detailumroh',[$r->id,$r->nama_jadwal_seo]) }}">lihat selengkapnya</a>
 </div>
 @endforeach
 <div><h3 align='center'>PAKET HAJI</h3></div>
@@ -46,7 +46,7 @@
     <div>
         {{$r->paket->nama}}
     </div>
-    <a href="{{ route('detailproduk',[$r->id,$r->nama_jadwal_seo]) }}">lihat selengkapnya</a>
+    <a href="{{ route('detailhaji',[$r->id,$r->nama_jadwal_seo]) }}">lihat selengkapnya</a>
 </div>
 @endforeach
 <div><h3 align='center'>CUSTOMER REVIEW</h3></div>

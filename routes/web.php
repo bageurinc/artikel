@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
 Route::get('/', 'homeController@index')->name('home');
 Route::get('/about', 'aboutController@index')->name('about');
 Route::get('/haji', 'hajiController@index')->name('haji');
@@ -24,6 +25,6 @@ Route::get('/umroh', 'umrohController@index')->name('umroh');
 Route::get('/umroh/{id}/{any}', 'umrohController@detailumroh')->name('detailumroh');
 Route::get('/gallery', 'galleryController@index')->name('gallery');
 Route::get('/gallery/{id}/{any}', 'galleryController@detailgallery')->name('detailgallery');
-Route::get('/rewards-acknowlegement', 'rewardsController@index')->name('rewards');
+Route::get('/rewards-acknowlegement', 'rewardController@view')->name('rewards');
 Route::get('/news', 'newsController@index')->name('news');
 Route::get('/artikel/{id}/{any}', 'newsController@detailartikel')->name('detailartikel');

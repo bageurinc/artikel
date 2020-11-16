@@ -8,7 +8,6 @@ use Bageur\Slider\model\slider;
 use Bageur\Album\model\album;
 use Bageur\PaketUmrah\model\jadwal;
 use Bageur\PaketUmrah\model\paket;
-use App\video;
 
 class homeController extends Controller
 {
@@ -20,7 +19,7 @@ class homeController extends Controller
             $q->where('tipe_paket', 'like', '%haji%');
         })->limit(7)->orderBy('created_at','desc')->get();
         $umroh  = jadwal::with(['paket'])->WhereHas('paket', function($q){
-            $q->where('tipe_paket', 'like', '%umroh%');
+            $q->where('tipe_paket', 'like', '%umrah%')->orwhere('tipe_paket', 'like', '%umroh%');
         })->limit(7)->orderBy('created_at','desc')->get();
         $artikel = artikel::limit(4)->orderBy('created_at','desc')->get();
         return view('home', compact('slider', 'paket', 'haji', 'umroh', 'artikel'));
