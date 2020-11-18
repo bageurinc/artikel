@@ -161,6 +161,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Bageur\PaketUmrah\PaketUmrahServiceProvider::class,
+        Bageur\Inventory\InventoryServiceProvider::class,
 
         /*
          * Package Service Providers...

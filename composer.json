@@ -42,7 +42,8 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Bageur\\PaketUmrah\\": "packages/bageur/paket_umrah/src"
+            "Bageur\\PaketUmrah\\": "packages/bageur/paket_umrah/src",
+            "Bageur\\Inventory\\": "packages/bageur/inventory/src"
         },
         "classmap": [
             "database/seeds",
