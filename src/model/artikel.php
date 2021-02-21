@@ -22,6 +22,10 @@ class artikel extends Model
     public function getJudulLimitAttribute() {
          return Str::words(strip_tags($this->judul),5,' ...');
     }
+    public function komen()
+    {
+        return $this->hasMany(komen::class, 'artikel_id', 'id');
+    }
     public function scopeDatatable($query,$request,$page=12)
     {
           $search       = ["judul",'tag','text'];
