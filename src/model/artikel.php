@@ -16,11 +16,15 @@ class artikel extends Model
             return AvatarProcessor::get($this->judul,@$this->gambar);
     }   
      public function getTextLimitAttribute() {
-         return Str::words(nl2br(strip_tags($this->text)),25);
+         return Str::limit(nl2br(strip_tags($this->text)),25);
     }    
 
     public function getJudulLimitAttribute() {
-         return Str::words(strip_tags($this->judul),5,' ...');
+         return Str::limit(strip_tags($this->judul),25,' ...');
+    }
+    public function komen()
+    {
+        return $this->hasMany(komen::class, 'artikel_id', 'id');
     }
     public function scopeDatatable($query,$request,$page=12)
     {
