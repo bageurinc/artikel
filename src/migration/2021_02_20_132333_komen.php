@@ -15,10 +15,14 @@ class Komen extends Migration
     {
         Schema::create('bgr_komen_artikel', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('artikel_id');
-            $table->foreignId('komen_id');
-            $table->foreignId('user_id');
-            $table->longText('text');
+            $table->foreignId('artikel_id')->nullable();
+            $table->foreignId('komen_id')->nullable();
+            $table->foreignId('user_id')->nullable();
+            $table->longText('text')->nullable();
+            $table->string('nama_artikel')->nullable();
+            $table->string('nama')->nullable();
+            $table->string('email')->nullable();
+            $table->string('website')->nullable();
             $table->timestamps();
         });
     }
