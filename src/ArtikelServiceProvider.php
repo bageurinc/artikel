@@ -17,6 +17,7 @@ class ArtikelServiceProvider extends ServiceProvider
         $this->app->make('Bageur\Artikel\ArtikelController');
         $this->app->make('Bageur\Artikel\AuthorController');
         $this->app->make('Bageur\Artikel\KategoriController');
+        $this->app->make('Bageur\Artikel\KomenController');
     }
 
     /**
