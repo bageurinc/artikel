@@ -5,9 +5,14 @@ namespace Bageur\Artikel\Model;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Bageur\Artikel\Processors\AvatarProcessor;
+use CyrildeWit\EloquentViewable\InteractsWithViews;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
 
-class artikel extends Model
+
+class artikel extends Model implements Viewable
 {
+    use InteractsWithViews;
+
     protected $table   = 'bgr_artikel';
     protected $appends = ['avatar','text_limit','judul_limit'];
 
