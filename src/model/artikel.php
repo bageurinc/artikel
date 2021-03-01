@@ -16,7 +16,7 @@ class artikel extends Model
             return AvatarProcessor::get($this->judul,@$this->gambar);
     }   
      public function getTextLimitAttribute() {
-         return Str::limit(nl2br(strip_tags($this->text)),25);
+         return Str::limit(nl2br(strip_tags($this->text)),125);
     }    
 
     public function getJudulLimitAttribute() {
