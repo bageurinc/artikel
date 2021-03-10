@@ -11,7 +11,8 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.1.3",
-        "tymon/jwt-auth": "^1.0"
+        "tymon/jwt-auth": "^1.0",
+        "cyrildewit/eloquent-viewable": "^6.0"
     },
     "autoload": {
         "psr-4": {
