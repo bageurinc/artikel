@@ -29,7 +29,7 @@ class artikel extends Model implements Viewable
     }
     public function komen()
     {
-        return $this->hasMany(komen::class, 'artikel_id', 'id');
+        return $this->hasMany('Bageur\Artikel\model\komen', 'artikel_id', 'id');
     }
     public function scopeDatatable($query,$request,$page=12)
     {
