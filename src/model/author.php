@@ -11,7 +11,7 @@ class author extends Model
 
     public function getAvatarAttribute()
     {
-            return \Bageur::avatar($this->nama,$this->foto);
+            return \Bageur::avatar($this->nama,$this->foto,'artikel');
     }   
     public function scopeDatatable($query,$request,$page=12)
     {
