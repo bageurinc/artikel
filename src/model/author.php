@@ -12,7 +12,7 @@ class author extends Model
 
     public function getAvatarAttribute()
     {
-            return AvatarProcessor::get($this->nama,$this->foto);
+            return \Bageur::avatar($this->judul,@$this->gambar);
     }   
     public function scopeDatatable($query,$request,$page=12)
     {

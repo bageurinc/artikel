@@ -12,7 +12,7 @@ class kategori extends Model
 
     public function getAvatarAttribute()
     {
-            return AvatarProcessor::get($this->nama);
+            return \Bageur::avatar($this->judul,@$this->gambar);
     }   
     public function scopeDatatable($query,$request,$page=12)
     {

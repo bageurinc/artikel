@@ -18,7 +18,7 @@ class artikel extends Model implements Viewable
 
     public function getAvatarAttribute()
     {
-            return AvatarProcessor::get($this->judul,@$this->gambar);
+        return \Bageur::avatar($this->judul,@$this->gambar);
     }   
      public function getTextLimitAttribute() {
          return Str::limit(nl2br(strip_tags($this->text)),125);
