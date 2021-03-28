@@ -48,7 +48,7 @@ class ArtikelController extends Controller
             $artikel->text                  = $request->text;
             if($request->file('gambar') != null){
                 $upload                     = \Bageur::blob($request->file('gambar'),'artikel');
-                $artikel->gambar            = $upload;
+                $artikel->gambar            = $upload['up'];
             }
             $artikel->save();
             if(!empty(env('TOKEN_TELEGRAM'))){
@@ -108,7 +108,7 @@ class ArtikelController extends Controller
             $artikel->text	        		= $request->text;
             if($request->file('gambar') != null){
                 $upload                     = \Bageur::blob($request->file('gambar'),'artikel');
-	           	$artikel->gambar	        = $upload;
+	           	$artikel->gambar	        = $upload['up'];
        		}
             $artikel->save();
             return response(['status' => true ,'text'    => 'has input'], 200); 
