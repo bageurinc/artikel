@@ -47,7 +47,7 @@ class ArtikelController extends Controller
             $artikel->tag                   = @$request->tag;
             $artikel->text                  = $request->text;
             if($request->file('gambar') != null){
-                $upload                     = UploadProcessor::go($request->file('gambar'),'artikel');
+                $upload                     = \Bageur::blob($request->file('gambar'),'artikel');
                 $artikel->gambar            = $upload;
             }
             $artikel->save();
@@ -107,7 +107,7 @@ class ArtikelController extends Controller
             $artikel->tag	        		= @$request->tag;
             $artikel->text	        		= $request->text;
             if($request->file('gambar') != null){
-                $upload                     = UploadProcessor::go($request->file('gambar'),'artikel');
+                $upload                     = \Bageur::blob($request->file('gambar'),'artikel');
 	           	$artikel->gambar	        = $upload;
        		}
             $artikel->save();
