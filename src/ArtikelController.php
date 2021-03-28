@@ -51,6 +51,9 @@ class ArtikelController extends Controller
                 $artikel->gambar            = $upload;
             }
             $artikel->save();
+            if(!empty(env('TOKEN_TELEGRAM'))){
+                \Notification::route('telegram', env('TELEGRAM_CHANNEL'))->notify(new \Bageur\Artikel\Notifications\Go($artikel));
+            }
             return response(['status' => true ,'text'    => 'has input'], 200); 
         }
     }
