@@ -3,7 +3,6 @@
 namespace Bageur\Artikel\Model;
 
 use Illuminate\Database\Eloquent\Model;
-use Bageur\Artikel\Processors\AvatarProcessor;
 
 class author extends Model
 {
@@ -12,7 +11,7 @@ class author extends Model
 
     public function getAvatarAttribute()
     {
-            return \Bageur::avatar($this->judul,@$this->gambar);
+            return \Bageur::avatar($this->nama,$this->foto);
     }   
     public function scopeDatatable($query,$request,$page=12)
     {

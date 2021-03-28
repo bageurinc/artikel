@@ -3,7 +3,6 @@
 namespace Bageur\Artikel\Model;
 
 use Illuminate\Database\Eloquent\Model;
-use Bageur\Artikel\Processors\AvatarProcessor;
 
 class komen extends Model
 {
