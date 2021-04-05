@@ -21,7 +21,7 @@ class artikel extends Model implements Viewable
         return \Bageur::avatar($this->judul,@$this->gambar,'artikel');
     }   
      public function getTextLimitAttribute() {
-         return Str::limit(nl2br(strip_tags($this->text)),125);
+         return Str::limit(\Bageur::toText($this->text),150);
     }    
 
     public function getJudulLimitAttribute() {
@@ -33,6 +33,7 @@ class artikel extends Model implements Viewable
     }
     public function scopeDatatable($query,$request,$page=12)
     {
+
           $search       = ["judul",'tag','text'];
           $searchqry    = '';
 
@@ -52,7 +53,6 @@ class artikel extends Model implements Viewable
             }else{
                   $query->orderBy('created_at','desc');
             }
-
              $query->whereRaw($searchqry);
         }else{
              $query->whereRaw($searchqry);
@@ -63,7 +63,7 @@ class artikel extends Model implements Viewable
         if($request->get == 'all'){
             return $query->get();
         }else{
-                return $query->paginate($page);
+            return $query->paginate($page);
         }
 
     }

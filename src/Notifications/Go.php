@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class Go extends Notification 
+class Go extends Notification
 {
     use Queueable;
 
@@ -26,21 +26,17 @@ class Go extends Notification
 
     public function toTelegram($notifiable)
     {
-        $urldetail = 'https://lite.midiatama.co.id/artikel/'.$this->artikel->judul_seo;
+        $urldetail = config('bageur.auth.fe_url').$this->artikel->judul_seo;
         $konten    = "*".$this->artikel->judul."*\n\n";
         $konten    .= $this->artikel->text_limit;
-        if(empty($this->artikel->gambar)){
+        if(empty($this->artikel->gambar) || ENV('APP_ENV') == 'local'){
             return TelegramMessage::create()
                                 ->content($konten)
                                 ->button('Lihat Detail', $urldetail);
         }else{
-            $img = 'https://file-examples-com.github.io/uploads/2017/10/file_example_JPG_1MB.jpg';
-            if(env('APP_ENV') != 'local'){
-                $img = $this->artikel->avatar;
-            }
             return TelegramFile::create()
-                                ->content($konten)
-                                ->photo($img)
+                                ->content($konten) 
+                                ->file('storage/artikel/'.$this->artikel->gambar, 'photo')
                                 ->button('Lihat Detail', $urldetail);
         }
     }

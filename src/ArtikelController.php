@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Bageur\Artikel\model\artikel;
-use Bageur\Artikel\Processors\UploadProcessor;
 use Validator;
 class ArtikelController extends Controller
 {
@@ -26,7 +25,7 @@ class ArtikelController extends Controller
                     ];
 
         if($request->file('gambar') != null){
-            $rules['gambar'] = 'mimes:jpg,jpeg,png|max:1000';
+            $rules['gambar'] = 'base64image|base64max:1000';
         }  
                     
         $messages   = [];
@@ -45,14 +44,21 @@ class ArtikelController extends Controller
             $artikel->seo_keyword           = @$request->seo_keyword;
             $artikel->seo_deskripsi         = @$request->seo_deskripsi;
             $artikel->tag                   = @$request->tag;
-            $artikel->text                  = $request->text;
-            if($request->file('gambar') != null){
-                $upload                     = \Bageur::blob($request->file('gambar'),'artikel');
+            $artikel->text                  = \Bageur::textarea($request->text);
+            if($request->isSchedule == 'Yes'){
+              $artikel->publish_at          = $request->tgl_publish;
+              $artikel->created_at          = $request->tgl_publish;
+            }
+            if($request->gambar != null){
+                $upload                     = \Bageur::base64($request->gambar,'artikel');
                 $artikel->gambar            = $upload['up'];
             }
             $artikel->save();
-            if(!empty(env('TOKEN_TELEGRAM'))){
-                \Notification::route('telegram', env('TELEGRAM_CHANNEL'))->notify(new \Bageur\Artikel\Notifications\Go($artikel));
+
+            if($request->isSchedule != 'Yes'){
+                if(!empty(env('TOKEN_TELEGRAM'))){
+                    \Notification::route('telegram', env('TELEGRAM_CHANNEL'))->notify(new \Bageur\Artikel\Notifications\Go($artikel));
+                }
             }
             return response(['status' => true ,'text'    => 'has input'], 200); 
         }
@@ -105,7 +111,7 @@ class ArtikelController extends Controller
             $artikel->seo_keyword	        = @$request->seo_keyword;
             $artikel->seo_deskripsi	        = @$request->seo_deskripsi;
             $artikel->tag	        		= @$request->tag;
-            $artikel->text	        		= $request->text;
+            $artikel->text                  = \Bageur::textarea($request->text);
             if($request->file('gambar') != null){
                 $upload                     = \Bageur::blob($request->file('gambar'),'artikel');
 	           	$artikel->gambar	        = $upload['up'];
