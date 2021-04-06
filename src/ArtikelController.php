@@ -104,18 +104,22 @@ class ArtikelController extends Controller
             return response(['status' => false ,'error'    =>  $errors->all()], 200);
         }else{
             $artikel              			= artikel::findOrFail($id);
-            $artikel->kategori_id	        = $request->kategori;
+            $artikel->kategori_id           = $request->kategori;
             $artikel->author_id             = $request->penulis;
-            $artikel->judul	        		= $request->judul;
-            $artikel->judul_seo	       		= Str::slug($request->judul);
-            $artikel->seo_keyword	        = @$request->seo_keyword;
-            $artikel->seo_deskripsi	        = @$request->seo_deskripsi;
-            $artikel->tag	        		= @$request->tag;
+            $artikel->judul                 = $request->judul;
+            $artikel->judul_seo             = Str::slug($request->judul);
+            $artikel->seo_keyword           = @$request->seo_keyword;
+            $artikel->seo_deskripsi         = @$request->seo_deskripsi;
+            $artikel->tag                   = @$request->tag;
             $artikel->text                  = \Bageur::textarea($request->text);
-            if($request->file('gambar') != null){
-                $upload                     = \Bageur::blob($request->file('gambar'),'artikel');
-	           	$artikel->gambar	        = $upload['up'];
-       		}
+            if($request->isSchedule == 'Yes'){
+              $artikel->publish_at          = $request->tgl_publish;
+              $artikel->updated_at          = $request->tgl_publish;
+            }
+            if($request->gambar != null){
+                $upload                     = \Bageur::base64($request->gambar,'artikel');
+                $artikel->gambar            = $upload['up'];
+            }
             $artikel->save();
             return response(['status' => true ,'text'    => 'has input'], 200); 
         }

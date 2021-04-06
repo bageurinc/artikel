@@ -15,6 +15,7 @@ class artikel extends Model implements Viewable
 
     protected $table   = 'bgr_artikel';
     protected $appends = ['avatar','text_limit','judul_limit'];
+    protected $hidden = ['gambar'];
 
     public function getAvatarAttribute()
     {
