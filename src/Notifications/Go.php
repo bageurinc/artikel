@@ -26,7 +26,7 @@ class Go extends Notification
 
     public function toTelegram($notifiable)
     {
-        $urldetail = config('bageur.auth.fe_url').$this->artikel->judul_seo;
+        $urldetail = config('bageur.auth.artikel_url').$this->artikel->judul_seo;
         $konten    = "*".$this->artikel->judul."*\n\n";
         $konten    .= $this->artikel->text_limit;
         if(empty($this->artikel->gambar) || ENV('APP_ENV') == 'local'){
