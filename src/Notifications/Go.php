@@ -29,14 +29,14 @@ class Go extends Notification
         $urldetail = config('bageur.auth.artikel_url').$this->artikel->judul_seo;
         $konten    = "*".$this->artikel->judul."*\n\n";
         $konten    .= $this->artikel->text_limit;
-        if(empty($this->artikel->gambar) || ENV('APP_ENV') == 'local'){
+        if(empty($this->artikel->gambar)){
             return TelegramMessage::create()
                                 ->content($konten)
                                 ->button('Lihat Detail', $urldetail);
         }else{
             return TelegramFile::create()
                                 ->content($konten) 
-                                ->file('storage/artikel/'.$this->artikel->gambar, 'photo')
+                                ->file(storage_path('app/public/artikel/'.$this->artikel->gambar), 'photo')
                                 ->button('Lihat Detail', $urldetail);
         }
     }
