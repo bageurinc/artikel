@@ -10,10 +10,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class Go extends Notification
+class Go extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    public $artikel;
     public function __construct($artikel)
     {
         $this->artikel = $artikel;
@@ -21,7 +22,12 @@ class Go extends Notification
 
     public function via($notifiable)
     {
-        return [TelegramChannel::class];
+        return [TelegramChannel::class,\Bageur\Artikel\Channels\RecodeBlast::class];
+    }
+
+    public function toBlast($notifiable)
+    {
+        return ['data' => $this->artikel];
     }
 
     public function toTelegram($notifiable)
