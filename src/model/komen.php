@@ -46,6 +46,9 @@ class komen extends Model
         }else{
              $query->whereRaw($searchqry);
         }
+        if($request->artikel_id){
+          $query->where('artikel_id',$request->artikel_id);
+        }
         if($request->get == 'all'){
             return $query->get();
         }else{

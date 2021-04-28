@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Bageur\Artikel\model\artikel;
-use Bageur\Artikel\Model\komen;
+use Bageur\Artikel\model\komen;
 use Bageur\Artikel\Processors\UploadProcessor;
 use Validator;
 class KomenController extends Controller
