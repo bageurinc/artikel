@@ -27,33 +27,40 @@ class Go extends Notification implements ShouldQueue
 
     public function toBlast($notifiable)
     {
-        return ['data' => $this->artikel];
+        if ($this->artikel->blast_email == 1) {
+            return ['data' => $this->artikel];
+        }
     }
 
     public function toTelegram($notifiable)
     {
-        $urldetail = config('bageur.auth.artikel_url').$this->artikel->judul_seo;
-        $konten    = "*".$this->artikel->judul."*\n\n";
-        $konten    .= $this->artikel->text_limit;
-        if(empty($this->artikel->gambar)){
-            return TelegramMessage::create()
-                                ->content($konten)
-                                ->button('Lihat Detail', $urldetail);
-        }else{
-            return TelegramFile::create()
-                                ->content($konten) 
-                                ->file(storage_path('app/public/artikel/'.$this->artikel->gambar), 'photo')
-                                ->button('Lihat Detail', $urldetail);
+        if ($this->artikel->blast_telegram == 1) {
+            $urldetail = config('bageur.auth.artikel_url').$this->artikel->judul_seo;
+            $konten    = "*".$this->artikel->judul."*\n\n";
+            $konten    .= $this->artikel->text_limit;
+            if(empty($this->artikel->gambar)){
+                return TelegramMessage::create()
+                                    ->content($konten)
+                                    ->button('Lihat Detail', $urldetail);
+            }else{
+                return TelegramFile::create()
+                                    ->content($konten) 
+                                    ->file(storage_path('app/public/artikel/'.$this->artikel->gambar), 'photo')
+                                    ->button('Lihat Detail', $urldetail);
+            }
         }
     }
 
     public function toWaSender($notifiable){
 
-        $urldetail = config('bageur.auth.artikel_url').$this->artikel->judul_seo;
-        $pesan = "Hi , $notifiable->nama !\n";
-        $pesan .= "Ada artikel baru dari midiatama\n\n";
-        $pesan .= "URL : $urldetail\n\n";
+        if ($this->artikel->blast_whatsapp == 1) {
+            $urldetail = config('bageur.auth.artikel_url').$this->artikel->judul_seo;
+            $pesan = "Hi , $notifiable->nama !\n";
+            $pesan .= "Ada artikel baru dari midiatama\n\n";
+            $pesan .= "*".$this->artikel->judul."*\n";
+            $pesan .= "URL : $urldetail";
 
-        return ['nomor'=> $notifiable->hp, 'pesan' => $pesan];
+            return ['nomor'=> $notifiable->hp, 'pesan' => $pesan];
+        }
     }
 }

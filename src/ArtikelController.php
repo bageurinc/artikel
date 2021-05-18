@@ -44,6 +44,9 @@ class ArtikelController extends Controller
             $artikel->seo_keyword           = @$request->seo_keyword;
             $artikel->seo_deskripsi         = @$request->seo_deskripsi;
             $artikel->tag                   = @$request->tag;
+            $artikel->blast_telegram        = @$request->blast_telegram;
+            $artikel->blast_whatsapp        = @$request->blast_whatsapp;
+            $artikel->blast_email           = @$request->blast_email;
             $artikel->text                  = \Bageur::textarea($request->text);
             if($request->isSchedule == 'Yes'){
               $artikel->publish_at          = $request->tgl_publish;
@@ -111,6 +114,9 @@ class ArtikelController extends Controller
             $artikel->seo_keyword           = @$request->seo_keyword;
             $artikel->seo_deskripsi         = @$request->seo_deskripsi;
             $artikel->tag                   = @$request->tag;
+            $artikel->blast_telegram        = @$request->blast_telegram;
+            $artikel->blast_whatsapp        = @$request->blast_whatsapp;
+            $artikel->blast_email           = @$request->blast_email;
             $artikel->text                  = \Bageur::textarea($request->text);
             if($request->isSchedule == 'Yes'){
               $artikel->publish_at          = $request->tgl_publish;
