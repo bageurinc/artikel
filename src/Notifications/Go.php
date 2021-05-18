@@ -22,7 +22,7 @@ class Go extends Notification implements ShouldQueue
 
     public function via($notifiable)
     {
-        return [TelegramChannel::class,\Bageur\Artikel\Channels\RecodeBlast::class];
+        return [TelegramChannel::class,\Bageur\Artikel\Channels\RecodeBlast::class,\Bageur\Artikel\Channels\WaSender::class];
     }
 
     public function toBlast($notifiable)
@@ -45,5 +45,15 @@ class Go extends Notification implements ShouldQueue
                                 ->file(storage_path('app/public/artikel/'.$this->artikel->gambar), 'photo')
                                 ->button('Lihat Detail', $urldetail);
         }
+    }
+
+    public function toWaSender($notifiable){
+
+        $urldetail = config('bageur.auth.artikel_url').$this->artikel->judul_seo;
+        $pesan = "Hi , $notifiable->nama !\n";
+        $pesan .= "Ada artikel baru dari midiatama\n\n";
+        $pesan .= "URL : $urldetail\n\n";
+
+        return ['nomor'=> $notifiable->hp, 'pesan' => $pesan];
     }
 }
