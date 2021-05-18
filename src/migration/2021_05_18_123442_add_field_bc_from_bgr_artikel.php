@@ -27,5 +27,8 @@ class AddFieldBcFromBgrArtikel extends Migration
      */
     public function down()
     {
+        Schema::table('bgr_artikel', function (Blueprint $table) {
+            //
+        });
     }
 }
