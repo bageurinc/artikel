@@ -1,6 +1,6 @@
 <?php
 
-namespace Bageur\Artikel\notifications;
+namespace Bageur\Artikel\Notifications;
 
 use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
