@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 class WaSender
 {
     public function send($notifiable, Notification $notification) {
+      try {
             $message  = $notification->toWaSender($notifiable);
             $response = Http::withHeaders([
                                     'apikey' => 'RYTx8xm4'
@@ -15,6 +16,9 @@ class WaSender
                                         'message' => $message['pesan'],
                                         'tujuan' => format_nohp($message['nomor']).'@s.whatsapp.net',
                                 ]);
+        } catch (\Throwable $th) {
+             \Log::error($th);
+        }
 
     }
 }

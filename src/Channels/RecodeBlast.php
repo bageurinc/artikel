@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 class RecodeBlast
 {
     public function send ($notifiable, Notification $notification) {
+        try {
                 $message  = $notification->toBlast($notifiable);
                 $data = config('bageur.auth.artikel_blast')::get();
                 foreach ($data as $key => $value) {
@@ -16,5 +17,8 @@ class RecodeBlast
                     Mail::to($notifiable->email)
                             ->queue(new \Bageur\Artikel\Mail\Blast($message['data']));
                 }
+        } catch (\Throwable $th) {
+             \Log::error($th);
+        }
     }
 }
