@@ -5,8 +5,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Bageur\Artikel\model\author;
-use Bageur\Artikel\Processors\UploadProcessor;
 use Validator;
+
 class AuthorController extends Controller
 {
 
@@ -20,7 +20,7 @@ class AuthorController extends Controller
     {
         $rules    	= [
                         'nama'		     		=> 'required|unique:bgr_author|min:3',
-                        'gambar'                => 'nullable|mimes:jpg,jpeg,png|max:1000'
+                        'gambar'                => 'required'
                     ];
 
         $messages 	= [];
@@ -34,12 +34,16 @@ class AuthorController extends Controller
             $author              			= new author;
             $author->nama	                = $request->nama;
             $author->nama_seo	       		= Str::slug($request->nama);
-            if($request->file('gambar') != null){
-                $upload                     = UploadProcessor::go($request->file('gambar'),'artikel');
-                $author->foto              = $upload;
+            // if($request->file('gambar') != null){
+            //     $upload                     = UploadProcessor::go($request->file('gambar'),'artikel');
+            //     $author->foto              = $upload;
+            // }
+            if($request->gambar != null){
+                $upload                     = \Bageur::base64($request->gambar,'artikel');
+                $author->foto               = $upload['up'];
             }
             $author->save();
-            return response(['status' => true ,'text'    => 'has input'], 200); 
+            return response(['status' => true ,'text'    => 'has input'], 200);
         }
     }
 
@@ -65,7 +69,7 @@ class AuthorController extends Controller
     {
         $rules      = [
                         'nama'                  => 'required|unique:bgr_author,nama,'.$id.',id|min:2',
-                        'gambar'                => 'nullable|mimes:jpg,jpeg,png|max:1000'
+                        'gambar'                => 'required'
                       ];
 
         $messages   = [];
@@ -79,12 +83,16 @@ class AuthorController extends Controller
             $author                       = author::findOrFail($id);
             $author->nama                 = $request->nama;
             $author->nama_seo             = Str::slug($request->nama);
-            if($request->file('gambar') != null){
-                $upload                     = UploadProcessor::go($request->file('gambar'),'artikel');
-                $author->foto              = $upload;
+            // if($request->file('gambar') != null){
+            //     $upload                     = UploadProcessor::go($request->file('gambar'),'artikel');
+            //     $author->foto              = $upload;
+            // }
+            if($request->gambar != null){
+                $upload                     = \Bageur::base64($request->gambar,'artikel');
+                $author->foto               = $upload['up'];
             }
             $author->save();
-            return response(['status' => true ,'text'    => 'has input'], 200); 
+            return response(['status' => true ,'text'    => 'has input'], 200);
         }
     }
 
@@ -98,7 +106,7 @@ class AuthorController extends Controller
     {
           $delete = author::findOrFail($id);
           $delete->delete();
-          return response(['status' => true ,'text'    => 'has deleted'], 200); 
+          return response(['status' => true ,'text'    => 'has deleted'], 200);
     }
 
 }
