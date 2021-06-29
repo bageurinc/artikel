@@ -22,8 +22,8 @@ class Go extends Notification implements ShouldQueue
 
     public function via($notifiable)
     {
-        return [TelegramChannel::class,\Bageur\Artikel\Channels\RecodeBlast::class,\Bageur\Artikel\Channels\WaSender::class];
-    }
+        return $this->artikel->blast_telegram == 1 ? [TelegramChannel::class,\Bageur\Artikel\Channels\RecodeBlast::class,\Bageur\Artikel\Channels\WaSender::class] : [\Bageur\Artikel\Channels\RecodeBlast::class,\Bageur\Artikel\Channels\WaSender::class];
+   }
 
     public function toBlast($notifiable)
     {
