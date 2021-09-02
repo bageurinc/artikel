@@ -45,7 +45,7 @@ class Go extends Notification implements ShouldQueue
             }else{
                 return TelegramFile::create()
                                     ->content($konten) 
-                                    ->file(storage_path('app/public/artikel/'.$this->artikel->gambar), 'photo')
+                                    ->file(\Bageur::avatar($this->artikel->judul,@$this->artikel->gambar,'artikel'), 'photo')
                                     ->button('Lihat Detail', $urldetail);
             }
         }
