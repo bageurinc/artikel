@@ -45,6 +45,9 @@ class ArtikelServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(__DIR__.'/views', 'bageurArtikel');
+        $this->publishes([
+            __DIR__ . './views' => base_path('resources/views/vendor/bageurArtikel')
+        ]);
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         $this->loadMigrationsFrom(__DIR__.'/migration');
     }
