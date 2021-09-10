@@ -144,4 +144,17 @@ class ArtikelController extends Controller
           return response(['status' => true ,'text'    => 'has deleted'], 200); 
     }
 
+    public function getartikel($id)
+    {
+        $company = \Bageur\Company\Model\company::first();
+        $data = artikel::find($id);
+        $satu = \Bageur\Artikel\model\artikel::inRandomOrder()->where('id','!=',$id)->first();  
+        $dua  = \Bageur\Artikel\model\artikel::inRandomOrder()->whereNotIn('id',[$id,$satu->id])->first();
+        return response()->json([
+            'company' => $company,
+            'data' => $data,
+            'satu' => $satu,
+            'dua' => $dua,
+        ]);
+    }
 }

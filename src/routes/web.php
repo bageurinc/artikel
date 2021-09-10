@@ -6,4 +6,5 @@ Route::name('bageur.')->group(function () {
 		Route::apiResource('author', 'bageur\artikel\AuthorController');
 		Route::apiResource('komen', 'bageur\artikel\KomenController');
 	});
+	Route::get('getartikel/{id}', 'bageur\artikel\ArtikelController@getartikel');
 });
