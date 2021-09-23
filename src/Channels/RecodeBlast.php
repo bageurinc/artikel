@@ -14,8 +14,8 @@ class RecodeBlast
                 foreach ($data as $key => $value) {
                     // Mail::to('404.ginda@gmail.com')
                     //         ->queue(new \Bageur\Artikel\Mail\Blast($message['data']));
-                    Mail::to($value->email)
-                            ->queue(new \Bageur\Artikel\Mail\Blast($message['data']));
+                    // Mail::to($value->email)
+                    //         ->queue(new \Bageur\Artikel\Mail\Blast($message['data']));
                 }
         } catch (\Throwable $th) {
             \Log::error($th);
