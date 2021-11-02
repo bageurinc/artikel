@@ -51,6 +51,8 @@ class ArtikelController extends Controller
             if($request->isSchedule == 'Yes'){
               $artikel->publish_at          = $request->tgl_publish;
               $artikel->created_at          = $request->tgl_publish;
+            } else{
+                $artikel->publish_at          = date('Y-m-d H:i:s');
             }
             if($request->gambar != null){
                 $upload                     = \Bageur::base64($request->gambar,'artikel');
