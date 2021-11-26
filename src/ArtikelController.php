@@ -51,6 +51,7 @@ class ArtikelController extends Controller
             if($request->isSchedule == 'Yes'){
               $artikel->publish_at          = $request->tgl_publish;
               $artikel->created_at          = $request->tgl_publish;
+              $artikel->updated_at          = $request->tgl_publish;
             } else{
                 $artikel->publish_at          = date('Y-m-d H:i:s');
             }
@@ -122,6 +123,7 @@ class ArtikelController extends Controller
             $artikel->text                  = \Bageur::textarea($request->text);
             if($request->isSchedule == 'Yes'){
               $artikel->publish_at          = $request->tgl_publish;
+              $artikel->created_at          = $request->tgl_publish;
               $artikel->updated_at          = $request->tgl_publish;
             }
             if($request->gambar != null){
