@@ -162,6 +162,12 @@ class ArtikelController extends Controller
     {
           $delete = artikel::findOrFail($id);
           $delete->delete();
+          try {
+              $response = Http::get('https://api.miccapro.com/api/artikel/syncnow');
+          } catch (\Throwable $th) {
+              // dd($th);
+              //throw $th;
+          }
           return response(['status' => true ,'text'    => 'has deleted'], 200); 
     }
 
