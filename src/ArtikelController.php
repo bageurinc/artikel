@@ -66,8 +66,22 @@ class ArtikelController extends Controller
                     \Notification::route('telegram', env('TELEGRAM_CHANNEL'))->notify(new \Bageur\Artikel\Notifications\Go($artikel));
                 }
             }
+
+            return $this->syncTraining();
+
             return response(['status' => true ,'text'    => 'has input'], 200); 
         }
+    }
+
+    public function syncTraining()
+    {
+        try {
+            $response = Http::get('https://api.miccapro.com/api/artikel/syncnow');
+        } catch (\Throwable $th) {
+            // dd($th);
+            //throw $th;
+        }
+        return response(['status' => true ,'text'    => 'has input'], 200);
     }
 
     /**
@@ -131,6 +145,9 @@ class ArtikelController extends Controller
                 $artikel->gambar            = $upload['up'];
             }
             $artikel->save();
+            
+            return $this->syncTraining();
+            
             return response(['status' => true ,'text'    => 'has input'], 200); 
         }
     }
