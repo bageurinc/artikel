@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Bageur\Artikel\model\artikel;
 use Validator;
+use Illuminate\Support\Facades\Http;
+
 class ArtikelController extends Controller
 {
 
