@@ -78,7 +78,7 @@ class ArtikelController extends Controller
     public function syncTraining()
     {
         try {
-            $response = Http::get('https://api.miccapro.com/api/artikel/syncnow');
+            $response = Http::post('https://api.miccapro.com/api/artikel/syncnow');
         } catch (\Throwable $th) {
             // dd($th);
             //throw $th;
