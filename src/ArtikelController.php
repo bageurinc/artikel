@@ -57,10 +57,10 @@ class ArtikelController extends Controller
             } else{
                 $artikel->publish_at          = date('Y-m-d H:i:s');
             }
-            if($request->gambar != null){
-                $upload                     = \Bageur::base64($request->gambar,'artikel');
-                $artikel->gambar            = $upload['up'];
-            }
+            // if($request->gambar != null){
+                // $upload                     = \Bageur::base64($request->gambar,'artikel');
+            $artikel->gambar                = $request->gambar;
+            // }
             $artikel->save();
 
             if($request->isSchedule != 'Yes'){
@@ -69,7 +69,7 @@ class ArtikelController extends Controller
                 }
             }
 
-            return $this->syncTraining();
+            // return $this->syncTraining();
 
             return response(['status' => true ,'text'    => 'has input'], 200); 
         }
@@ -142,13 +142,10 @@ class ArtikelController extends Controller
               $artikel->created_at          = $request->tgl_publish;
               $artikel->updated_at          = $request->tgl_publish;
             }
-            if($request->gambar != null){
-                $upload                     = \Bageur::base64($request->gambar,'artikel');
-                $artikel->gambar            = $upload['up'];
-            }
+            $artikel->gambar                = $request->gambar;
             $artikel->save();
             
-            return $this->syncTraining();
+            // return $this->syncTraining();
             
             return response(['status' => true ,'text'    => 'has input'], 200); 
         }
